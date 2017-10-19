@@ -5,7 +5,7 @@ module.exports = app => {
     * index() {
       this.ctx.body = 'hi, egg -- adc';
       //test
-        //
+        //0
     }
   }
   return HomeController;
