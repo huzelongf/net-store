@@ -8,6 +8,12 @@ module.exports = appInfo => {
           mapping: {
               '.tpl': 'nunjucks',
           }
+      },
+      sysConfig: {
+          appKey: 'EC-4IETp5IG2',
+          clientSecret: 'XlzkdrnXt3mZOi3I2',
+          url: 'http://120.78.137.79:8095/code2UserInfo',
+          userInfo: 'http://120.78.137.79:8095/api/user'
       }
   };
 

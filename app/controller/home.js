@@ -7,19 +7,23 @@ module.exports = app => {
       }
 
       async codeAuth() {
-          /* console.log(this.ctx.query.code +', state= ' + this.ctx.query.state);
-          this.ctx.body = this.ctx.query.code +', state= ' + this.ctx.query.state ;*/
-
-          //String code, String appKey, String clientSecret
           const code = this.ctx.query.code;
-          const appKey = 'EC-4IETp5IG2';
-          const clientSecret = 'XlzkdrnXt3mZOi3I2';
-          const result = yield this.curl(`http://120.78.137.79:8095/code2UserInfo?code=${code}&appKey=${appKey}&clientSecret=${clientSecret}`);
+          const {appKey, clientSecret, url, userInfo} = this.app.config.sysConfig;
+          const result = await this.app.curl(`${url}?code=${code}&appKey=${appKey}&clientSecret=${clientSecret}`,{dataType: 'json'});
           console.log(result.data);
+          console.log('------------------------------------');
 
-          this.status = result.status;
-          this.set(result.headers);
-          this.body = result.data;
+          const token = 'Bearer ' +result.data.access_token;
+          const result2 = await this.app.curl(`${userInfo}`, {
+              method: 'POST',
+              dataType: 'json',
+              headers: { Authorization: token}
+          });
+          console.log(result2.data);
+
+          //this.ctx.body = JSON.stringify(result.data)  +' \n \n\n userInfo : ' + JSON.stringify(result2.data);
+
+          await this.ctx.render('/main.html', {});
       }
   }
   return HomeController;
