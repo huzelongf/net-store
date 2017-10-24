@@ -1,11 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>灵灵G分销仓存管理系统</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/public/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/public/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/public/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/public/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. -->
+    <link rel="stylesheet" href="/public/css/skins/skin-blue-light.min.css">
 
-        this is main.html
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini">
+<div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>LT</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b>后台管理</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+
+
+
+                    <!-- User Account Menu -->
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- The user image in the navbar-->
+                            <img src="/public/images/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">Alexander Pierce</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <img src="/public/images/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                <p>
+                                    Alexander Pierce - Web Developer
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">概况</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/" class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">菜单导航</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="treeview active menu-open" ><a href="#"><i class="fa fa-link"></i> <span>基础数据</span>
+                    <span class="pull-right-container">
+                <span class="label label-primary pull-right">11</span>
+              </span>
+                </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href="#">商品类别</a></li>
+                        <li><a href="goods_list.jsp">商品管理</a></li>
+                        <li><a href="/jsp/regional_list.jsp">区域管理</a></li>
+                        <li><a href="/jsp/shopstore_list.jsp">店铺管理</a></li>
+                        <li><a href="/jsp/company_list.jsp">公司信息</a></li>
+                        <li><a href="/jsp/department_list.jsp">部门设置</a></li>
+                        <li><a href="/jsp/user_list.jsp">人员信息</a></li>
+                        <li><a href="/jsp/jobs_list.jsp">岗位权限设置</a></li>
+                        <li><a href="/jsp/warehouse_list.jsp">仓库资料设置</a></li>
+                        <li><a href="/jsp/storage_list.jsp">库位管理</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-link"></i> <span>分销（会员）管理</span>
+                        <span class="pull-right-container">
+                <span class="label label-primary pull-right">8</span>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/jsp/distributor_list.jsp">分销商档案</a></li>
+                        <li><a href="/jsp/distributorlevel_list.jsp">分销商级别</a></li>
+                        <li><a href="/jsp/distributor_perm_list.jsp">分销商权限</a></li>
+                        <!-- <li><a href="#">分销商积分管理</a></li>
+                        <li><a href="#">分销商分析报表</a></li>
+                        <li><a href="#">仓库设置</a></li> -->
+                        <li><a href="/jsp/order_list.jsp">订单管理</a></li>
+                        <li><a href="/jsp/distributor_money_list.jsp">会员金额管理</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>库存管理</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">6</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 主库存管理</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 会员库存管理</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 区域库存管理</a></li>
+                        <li><a href="/jsp/purchase_list.jsp"><i class="fa fa-circle-o"></i> 采购入库</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 直接入库</a></li>
+                        <li><a href="/jsp/goods_security_list.jsp"><i class="fa fa-circle-o"></i> 预警库存设置</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>调拨/移库管理</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 生成调拨/移库计划单</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 调拨/移库出库</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 调拨/移库入库</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>商品管理</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/jsp/goodsGroup_list.jsp"><i class="fa fa-circle-o"></i> 产品组合套装</a></li>
+                        <li><a href="/jsp/goodsPromotion_list.jsp"><i class="fa fa-circle-o"></i> 产品促销设置</a></li>
+                        <!-- <li><a href="#"><i class="fa fa-circle-o"></i> 同步网店宝贝</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 盘点</a></li> -->
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>订单管理</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 订单工作分配</a></li>
+                        <li><a href="/jsp/order_exception_list.jsp"><i class="fa fa-circle-o"></i> 异常订单</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>打印管理</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 捡货单打印</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 快递单打印</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 盘点库存打印</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>盘点库存打印</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">3</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 实时报表</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 仓库报表</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 区域报表</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 主仓库报表</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 会员报表</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 综合报表</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>&nbsp;
+                <!-- Page Header
+                <small>Optional description</small> -->
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 基础数据</a></li>
+                <li class="active">商品类别</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+
+            <!--------------------------
+              | Your Page Content Here |
+              -------------------------->
+            <!-- Info boxes -->
+
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <!-- TABLE: LATEST ORDERS -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">商品类别</h3><a class="btn btn-xs add_btn pull-right"><i class="fa fa-plus"></i> 新增</a>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-11 col-sm-offset-1">
+                                    <!-- <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control">
+                                        <span class="input-group-btn">
+                                          <button type="button" class="btn btn-info btn-flat">搜索</button>
+                                        </span>
+                                    </div> -->
+
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="exampleInputName2">关键字</label>
+                                            <input type="text" class="form-control" id="exampleInputName2" placeholder="商品类型名称\编码">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">搜索</button>
+
+                                        <!-- <div class="col-sm-1"><a class="btn btn-xs add_btn pull-right"><i class="fa fa-plus"></i> 新增</a></div> -->
+                                    </form>
+
+                                </div>
+                            </div>
+                            <table id="example1" class="table table-bordered table-striped text-center">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>编码</th>
+                                    <th>名称</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2012001
+                                    </td>
+                                    <td>服装</td>
+                                    <td><span class="badge bg-green">有效</span></td>
+                                    <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td><!-- <i class="fa fa-exchange"></i> -->
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>2012002 </td>
+                                    <td>鞋袜</td>
+                                    <td><span class="badge bg-red">无效</span></td>
+                                    <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>2017001</td>
+                                    <td>方便面</td>
+                                    <td>5.5</td>
+                                    <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>2017002</td>
+                                    <td>饮料</td>
+                                    <td>6</td>
+                                    <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>2017003</td>
+                                    <td>手机</td>
+                                    <td>7</td>
+                                    <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            Anything you want
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    </footer>
+
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+    immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/public/js/adminlte.min.js"></script>
+<!-- DataTables -->
+<script src="/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="/public/bower_components/layer/layer.js"></script>
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+<!-- page script -->
+<script>
+    $(function () {
+        var dt =$('#example1').DataTable({
+            "language": {
+                "url": "/public/bower_components/datatables.net/js/chinese.json"
+            },
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : false,
+            'info'        : true,
+            'autoWidth'   : false
+        })
+
+        $(".delete_btn").on('click',function(){
+            layer.confirm('您确定删除吗？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                layer.msg('删除成功', {icon: 1});
+            }, function(){
+                layer.msg('取消', {icon: 2});
+            });
+        })
+        $(".edit_btn,.add_btn").on("click",function(){
+            layer.open({
+                type: 2,
+                title: '编辑',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                content: ['/jsp/goods_type_edit.jsp','yes'] //iframe的url
+            });
+        })
+
+    })
+</script>
 </body>
 </html>

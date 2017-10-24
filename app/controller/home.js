@@ -20,9 +20,20 @@ module.exports = app => {
               headers: { Authorization: token}
           });
           console.log(result2.data);
-
+          console.log('------------------------------------');
           //this.ctx.body = JSON.stringify(result.data)  +' \n \n\n userInfo : ' + JSON.stringify(result2.data);
 
+          const  api_dict_type = this.app.config.api.get_api_dict_type();
+          console.log(api_dict_type);
+          console.log('------------------------------------');
+          const result3 = await this.app.curl(`${api_dict_type}`, {
+              method: 'GET',
+              dataType: 'json',
+              headers: { Authorization: token}
+          });
+          console.log(result3.data);
+
+          this.ctx.session.globalToken = result.data.access_token;
           await this.ctx.render('/main.html', {});
       }
   }
