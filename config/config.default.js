@@ -20,6 +20,11 @@ module.exports = appInfo => {
           //api_dict_type: 'http://120.78.137.79:8096/api/dict/type/EC-4IETp5IG2',
           get_api_dict_type : function () {
               return `${this.remote}/api/dict/type/${config.sysConfig.appKey}`;
+          },
+
+          //'http://120.78.137.79:8096/api/dict/2'
+          get_api_dict_type_single : function (id) {
+              return `${this.remote}/api/dict/typeId/${id}`;
           }
       }
   };

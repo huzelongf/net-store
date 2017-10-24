@@ -10,6 +10,13 @@ module.exports = app => {
             this.ctx.body = result.data;
             this.ctx.status = result.status;
         }
+        async edit_dict() {
+            const token = this.ctx.session.globalToken;
+            const id = this.ctx.query.id;
+            const result = await this.service.dict.get_dict_edit(token, id);
+            console.log(result);
+            await  this.ctx.render('/dict/dict-edit.html', result.data);
+        }
     }
 
     return DictController;

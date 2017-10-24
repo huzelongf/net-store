@@ -4,13 +4,23 @@
 module.exports = app => {
     class DictService extends app.Service {
         async get_dict_array(token) {
-            const  api_dict_type = this.app.config.api.get_api_dict_type();
-            const result3 = await this.app.curl(`${api_dict_type}`, {
+            const  url = this.app.config.api.get_api_dict_type();
+            const result = await this.app.curl(`${url}`, {
                 method: 'GET',
                 dataType: 'json',
                 headers: { Authorization: `Bearer ${token}`}
             });
-            return result3;
+            return result;
+        }
+
+        async get_dict_edit(token, id) {
+            const  url = this.app.config.api.get_api_dict_type_single(id);
+            const result = await this.app.curl(`${url}`, {
+                method: 'GET',
+                dataType: 'json',
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            return result;
         }
     }
 
