@@ -6,6 +6,7 @@
   "dependencies": {
     "egg": "^1.8.0",
     "egg-scripts": "^1.2.0",
+    "egg-validate": "^1.0.0",
     "egg-view-nunjucks": "^2.1.4",
     "mocha": "^4.0.1"
   },
