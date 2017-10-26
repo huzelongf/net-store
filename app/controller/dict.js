@@ -3,19 +3,38 @@
  */
 module.exports = app => {
     class DictController extends app.Controller {
-        async get_dict_array() {
+
+        constructor(ctx) {
+            super(ctx);
+
+            this.createRule = {
+                //id: { format: /\d+/, required: false },
+                code: {type: 'string'},
+                name: {type: 'string'}
+                /*tab: { type: 'string',   required: true },*/
+            };
+        }
+
+        async index() {
             const token = this.ctx.session.globalToken;
             console.log(`=============token : ${token}=============`)
             const result = await this.service.dict.get_dict_array(token);
             this.ctx.body = result.data;
             this.ctx.status = result.status;
         }
-        async edit_dict() {
+        async edit() {
             const token = this.ctx.session.globalToken;
             const id = this.ctx.query.id;
             const result = await this.service.dict.get_dict_edit(token, id);
-            console.log(result);
+            console.log(result.data);
             await  this.ctx.render('/dict/dict-edit.html', result.data);
+        }
+
+        async update(){
+            console.log('dict update')
+            const { ctx } = this;
+            ctx.validate(this.createRule);  //
+            console.log(ctx.request.body);
         }
     }
 

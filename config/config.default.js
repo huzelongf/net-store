@@ -34,7 +34,7 @@ module.exports = appInfo => {
 
           //'http://120.78.137.79:8096/api/dict/2'
           get_api_dict_type_single : function (id) {
-              return `${this.remote}/api/dict/typeId/${id}`;
+              return `${this.remote}/api/dict/type/id/${id}`;
           }
       }
   };
