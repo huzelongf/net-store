@@ -29,12 +29,20 @@ module.exports = appInfo => {
           remote: 'http://120.78.137.79:8096',
           //api_dict_type: 'http://120.78.137.79:8096/api/dict/type/EC-4IETp5IG2',
           get_api_dict_type : function () {
-              return `${this.remote}/api/dict/type/${config.sysConfig.appKey}`;
+              return `${this.remote}/api/baseType/clientId/${config.sysConfig.appKey}`;
           },
 
           //'http://120.78.137.79:8096/api/dict/2'
           get_api_dict_type_single : function (id) {
-              return `${this.remote}/api/dict/type/id/${id}`;
+              return `${this.remote}/api/baseType/${id}`;
+          },
+
+          put_api_baseType: function () {
+              return `${this.remote}/api/baseType`;
+          },
+
+          post_api_baseType: function () {
+              return `${this.remote}/api/baseType`;
           }
       }
   };

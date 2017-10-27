@@ -31,10 +31,12 @@ module.exports = app => {
         }
 
         async update(){
-            console.log('dict update')
             const { ctx } = this;
             ctx.validate(this.createRule);  //
-            console.log(ctx.request.body);
+            const token = this.ctx.session.globalToken;
+            const params = ctx.request.body;
+            const result = await this.service.dict.update_baseType(token, params);
+            ctx.body = { code:result.status, msg:'success' }
         }
     }
 
