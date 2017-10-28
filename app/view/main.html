@@ -334,8 +334,10 @@
      user experience. -->
 <!-- page script -->
 <script>
+
+    var dt;
     $(function () {
-        var dt =$('#example1').DataTable({
+        dt =$('#example1').DataTable({
             "language": {
                 "url": "/public/bower_components/datatables.net/js/chinese.json"
             },
@@ -407,6 +409,10 @@
         })
 
     })
+
+    function refesh() {
+        dt.draw();
+    }
 </script>
 </body>
 </html>

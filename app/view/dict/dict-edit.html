@@ -82,8 +82,7 @@
 
 <script>
 
-    $.fn.serializeObject = function()
-    {
+    $.fn.serializeObject = function() {
         var o = {};
         var a = this.serializeArray();
         $.each(a, function() {
@@ -114,6 +113,9 @@
                 dataType:'json',
                 data:jsonuserinfo,
                 success: function(ds) {
+                    if (ds.code == 200) {
+                        parent.refesh();
+                    }
                     parent.layer.close(index);
                 },
                 error : function() {
