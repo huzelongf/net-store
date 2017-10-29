@@ -37,10 +37,6 @@ module.exports = appInfo => {
               return `${this.remote}/api/baseType/${id}`;
           },
 
-          put_api_baseType: function () {
-              return `${this.remote}/api/baseType`;
-          },
-
           post_api_baseType: function () {
               return `${this.remote}/api/baseType`;
           }

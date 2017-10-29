@@ -397,7 +397,14 @@
             });
         });
         $(".add_btn").on("click",function(){
-            alert('click');
+            layer.open({
+                type: 2,
+                title: '编辑',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                content: ['/dict/create','yes']
+            });
             /*layer.open({
                 type: 2,
                 title: '编辑',

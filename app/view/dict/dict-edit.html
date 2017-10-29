@@ -108,7 +108,7 @@
 
             var jsonuserinfo = $('#bookInfo_form').serializeObject();
             $.ajax({
-                url : "/dict/update?_csrf={{ ctx.csrf | safe }}",
+                url : "/dict/save?_csrf={{ ctx.csrf | safe }}",
                 type: "POST",
                 dataType:'json',
                 data:jsonuserinfo,

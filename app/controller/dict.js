@@ -30,12 +30,18 @@ module.exports = app => {
             await  this.ctx.render('/dict/dict-edit.html', result.data);
         }
 
-        async update(){
+        async create() {
+            await  this.ctx.render('/dict/dict-edit.html', {id:-1});
+        }
+
+        async save(){
             const { ctx } = this;
             ctx.validate(this.createRule);  //
             const token = this.ctx.session.globalToken;
             const params = ctx.request.body;
-            const result = await this.service.dict.update_baseType(token, params);
+            params.clientId = this.app.config.sysConfig.appKey;
+            const result = await this.service.dict.save(token, params);
+
             ctx.body = { code:result.status, msg:'success' }
         }
     }

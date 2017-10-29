@@ -29,15 +29,8 @@ module.exports = app => {
             return result;
         }
 
-        async update_baseType(token, params) {
-            const  url = this.app.config.api.put_api_baseType();
-            const opt = {data: params, method: 'PUT'};
-            const result = await this.request(url, token, opt);
-            this.checkSuccess(result);
-            return result;
-        }
 
-        async create_baseType(token, params) {
+        async save(token, params) {
             const  url = this.app.config.api.post_api_baseType();
             const opt = {data: params, method: 'POST'};
             const result = await this.request(url, token, opt);
