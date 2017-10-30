@@ -266,7 +266,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-11 col-sm-offset-1">
+                                <div class="col-sm-11 col-sm-offset-0">
                                     <!-- <div class="input-group input-group-sm">
                                     <input type="text" class="form-control">
                                         <span class="input-group-btn">
@@ -276,10 +276,10 @@
 
                                     <form class="form-inline">
                                         <div class="form-group">
-                                            <label for="exampleInputName2">关键字</label>
-                                            <input type="text" class="form-control" id="exampleInputName2" placeholder="商品类型名称\编码">
+                                            <label for="keyWord">关键字</label>
+                                            <input type="text" class="form-control" id="keyWord" placeholder="商品类型名称\编码">
                                         </div>
-                                        <button type="submit" class="btn btn-default">搜索</button>
+                                        <button type="button" class="btn btn-default btn-search">搜索</button>
 
                                         <!-- <div class="col-sm-1"><a class="btn btn-xs add_btn pull-right"><i class="fa fa-plus"></i> 新增</a></div> -->
                                     </form>
@@ -336,6 +336,7 @@
 <script>
 
     var dt;
+    var clientId = `{{clientId}}`;
     $(function () {
         dt =$('#example1').DataTable({
             "language": {
@@ -355,6 +356,12 @@
                     var arrObject = new Array();
                     var start = {"name": "start", "value": d.start};
                     var length = {"name": "length", "value": d.length};
+                    var draw = {"name": "draw", "value": d.draw};
+                    var parater = {name:'clientId', value:clientId};
+                    arrObject.push(start, length, draw, parater);
+                    var keyWord = $("#keyWord").val();
+                    arrObject.push({"name": "keyWord", "value": keyWord});
+
                     return arrObject;
                 }
             },
@@ -367,7 +374,11 @@
             },
             columns: [
                 {data: null, title: "序号", orderable: false, width: '8%'},
+                {data: "code", title: "编码" , orderable:false, width: '10%'},
                 {data: "name", title: "类型" , orderable:false},
+                {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
+                    return row.status == 1 ? '生效' : '新增';
+                } },
                 {data: "id", title: "操作", width: '15%', orderable:false, render:function(data, type, row){
                     return '<a class="btn btn-xs edit_btn" myData="'+row.id+'"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn" myData="'+row.id+'"><i class="fa fa-close"></i> 删除</a>';
                 }}
@@ -414,6 +425,11 @@
                 content: ['/jsp/goods_type_edit.jsp','yes']
             });*/
         })
+
+        $('.btn-search').on('click', function(){
+
+            $("#example1").DataTable().draw();
+        });
 
     })
 

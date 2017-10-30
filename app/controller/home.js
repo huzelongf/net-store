@@ -33,8 +33,9 @@ module.exports = app => {
           });
           console.log(result3.data);
 
+          const clientId = this.app.config.sysConfig.appKey;
           this.ctx.session.globalToken = result.data.access_token;
-          await this.ctx.render('/main.html', {});
+          await this.ctx.render('/main.html', {'clientId':clientId});
       }
   }
   return HomeController;

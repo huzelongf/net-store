@@ -15,9 +15,10 @@ module.exports = app => {
             return await this.ctx.curl(`${url}`, opts);
         }
 
-        async get_dict_array(token) {
+        async get_dict_array(token, params) {
             const  url = this.app.config.api.get_api_dict_type();
-            const result = await this.request(url, token, {});
+            const opt = {data: params};
+            const result = await this.request(url, token, opt);
             this.checkSuccess(result);
             return result;
         }

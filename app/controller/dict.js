@@ -17,11 +17,12 @@ module.exports = app => {
 
         async index() {
             const token = this.ctx.session.globalToken;
-            console.log(`=============token : ${token}=============`)
-            const result = await this.service.dict.get_dict_array(token);
+            const  params = this.ctx.query;
+            const result = await this.service.dict.get_dict_array(token, params);
             this.ctx.body = result.data;
             this.ctx.status = result.status;
         }
+
         async edit() {
             const token = this.ctx.session.globalToken;
             const id = this.ctx.query.id;
