@@ -27,6 +27,13 @@ module.exports = appInfo => {
       },
       api: {
           remote: 'http://120.78.137.79:8096',
+
+
+          get_baseType_Array : function () {
+              return `${this.remote}/api/baseType/array/${config.sysConfig.appKey}`;
+          },
+
+
           //api_dict_type: 'http://120.78.137.79:8096/api/dict/type/EC-4IETp5IG2',
           get_api_dict_type : function () {
               return `${this.remote}/api/baseType/clientId/${config.sysConfig.appKey}`;

@@ -10,4 +10,7 @@ module.exports = app => {
 
     app.get('/news', 'news.index');
     app.post('/news/create', 'news.create');
+
+
+    app.get('/baseType/array', 'baseType.array');
 };

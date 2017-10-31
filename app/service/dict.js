@@ -23,6 +23,8 @@ module.exports = app => {
             return result;
         }
 
+
+
         async get_dict_edit(token, id) {
             const  url = this.app.config.api.get_api_dict_type_single(id);
             const result = await this.request(url, token, {});
