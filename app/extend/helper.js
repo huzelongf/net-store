@@ -13,7 +13,9 @@ module.exports = {
             contentType: 'json',
             headers: {Authorization: `Bearer ${token}`}
         }, opts);
-        return await ctx.curl(`${url}`, opts);
+        const result = await ctx.curl(`${url}`, opts);
+        this.checkSuccess(result);
+        return result;
     },
 
     //请求结果检查

@@ -60,6 +60,16 @@ module.exports = appInfo => {
           },
           baseType_list: function () {
               return `${this.remote}/api/baseType/clientId/${config.sysConfig.appKey}`;
+          },
+
+          baseDict_list: function () {
+              return `${this.remote}/api/baseDict/list/${config.sysConfig.appKey}`;
+          },
+          baseDict_edit: function (id) {
+              return `${this.remote}/api/baseDict/${id}`;
+          },
+          baseDict_save: function () {
+              return `${this.remote}/api/baseDict`;
           }
       }
   };

@@ -15,32 +15,24 @@ module.exports = app => {
         async array(token, params) {
             const  url = this.api.baseType_Array();
             const opt = {data: params};
-            const result = await this.helper.request(this.ctx, url, token, opt);
-            this.helper.checkSuccess(result);
-            return result;
+            return await this.helper.request(this.ctx, url, token, opt);
         }
 
         async list(token, params) {
              const  url = this.api.baseType_list();
              const opt = {data: params};
-             const result = await this.helper.request(this.ctx, url, token, opt);
-             this.helper.checkSuccess(result);
-             return result;
+             return await this.helper.request(this.ctx, url, token, opt);
         }
 
         async edit(token, id) {
              const  url = this.api.baseType_edit(id);
-             const result = await this.helper.request(this.ctx, url, token, {});
-             this.helper.checkSuccess(result);
-             return result;
+             return await this.helper.request(this.ctx, url, token, {});
         }
 
         async save(token, params) {
              const  url = this.api.baseType_sava();
              const opt = {data: params, method: 'POST'};
-             const result = await this.helper.request(this.ctx, url, token, opt);
-             this.helper.checkSuccess(result);
-             return result;
+             return  await this.helper.request(this.ctx, url, token, opt);
         }
 
     }

@@ -13,25 +13,21 @@ module.exports = app => {
 
 
         async list(token, params) {
-
+            const  url = this.api.baseDict_list();
+            const opt = {data: params};
+            return await this.helper.request(this.ctx, url, token, opt);
         }
 
         async edit(token, id) {
-           /* const  url = this.api.baseTypeById(id);
-            const result = await this.helper.request(this.ctx, url, token, {});
-            this.helper.checkSuccess(result);
-            return result;*/
+            const url = this.api.baseType_edit(id);
+            return await this.helper.request(this.ctx, url, token, {});
         }
 
         async save(token, params) {
-           /* const  url = this.api.baseType();
+            const  url = this.api.baseDict_save();
             const opt = {data: params, method: 'POST'};
-            const result = await this.helper.request(this.ctx, url, token, opt);
-            this.helper.checkSuccess(result);
-            return result;*/
+            return await this.helper.request(this.ctx, url, token, opt);
         }
-
-
     }
 
 

@@ -17,7 +17,7 @@ module.exports = app => {
         }
 
         async index() {
-
+            await  this.ctx.render('/baseDict/index.html', {});
         }
 
         async list() {
