@@ -11,6 +11,12 @@ module.exports = app => {
     app.get('/news', 'news.index');
     app.post('/news/create', 'news.create');
 
-
+    /*baseType*/
     app.get('/baseType/array', 'baseType.array');
+    app.get('/baseType', 'baseType.list');
+    app.get('/baseType/edit', 'baseType.edit');
+    app.get('/baseType/create', 'baseType.create');
+    app.post('/baseType/save', 'baseType.save');
+    /*baseDict*/
+    //app.get('/baseDict/index', 'baseType.index');
 };

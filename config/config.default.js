@@ -46,6 +46,20 @@ module.exports = appInfo => {
 
           post_api_baseType: function () {
               return `${this.remote}/api/baseType`;
+          },
+
+
+          baseType_Array : function () {
+              return `${this.remote}/api/baseType/array/${config.sysConfig.appKey}`;
+          },
+          baseType_sava: function () {
+              return `${this.remote}/api/baseType`;
+          },
+          baseType_edit: function (id) {
+              return `${this.remote}/api/baseType/${id}`;
+          },
+          baseType_list: function () {
+              return `${this.remote}/api/baseType/clientId/${config.sysConfig.appKey}`;
           }
       }
   };

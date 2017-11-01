@@ -13,13 +13,35 @@ module.exports = app => {
 
 
         async array(token, params) {
-            const  url = this.api.get_baseType_Array();
+            const  url = this.api.baseType_Array();
             const opt = {data: params};
             const result = await this.helper.request(this.ctx, url, token, opt);
             this.helper.checkSuccess(result);
             return result;
         }
 
+        async list(token, params) {
+             const  url = this.api.baseType_list();
+             const opt = {data: params};
+             const result = await this.helper.request(this.ctx, url, token, opt);
+             this.helper.checkSuccess(result);
+             return result;
+        }
+
+        async edit(token, id) {
+             const  url = this.api.baseType_edit(id);
+             const result = await this.helper.request(this.ctx, url, token, {});
+             this.helper.checkSuccess(result);
+             return result;
+        }
+
+        async save(token, params) {
+             const  url = this.api.baseType_sava();
+             const opt = {data: params, method: 'POST'};
+             const result = await this.helper.request(this.ctx, url, token, opt);
+             this.helper.checkSuccess(result);
+             return result;
+        }
 
     }
 

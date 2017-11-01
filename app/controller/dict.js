@@ -16,34 +16,32 @@ module.exports = app => {
         }
 
         async index() {
-            const token = this.ctx.session.globalToken;
+            /*const token = this.ctx.session.globalToken;
             const  params = this.ctx.query;
             const result = await this.service.dict.get_dict_array(token, params);
             this.ctx.body = result.data;
-            this.ctx.status = result.status;
+            this.ctx.status = result.status;*/
         }
 
         async edit() {
-            const token = this.ctx.session.globalToken;
+            /*const token = this.ctx.session.globalToken;
             const id = this.ctx.query.id;
             const result = await this.service.dict.get_dict_edit(token, id);
-            console.log(result.data);
-            await  this.ctx.render('/dict/dict-edit.html', result.data);
+            await  this.ctx.render('/dict/dict-edit.html', result.data);*/
         }
 
         async create() {
-            await  this.ctx.render('/dict/dict-edit.html', {id:-1});
+            /*await  this.ctx.render('/dict/dict-edit.html', {id:-1});*/
         }
 
         async save(){
-            const { ctx } = this;
+            /*const { ctx } = this;
             ctx.validate(this.createRule);  //
             const token = this.ctx.session.globalToken;
             const params = ctx.request.body;
             params.clientId = this.app.config.sysConfig.appKey;
             const result = await this.service.dict.save(token, params);
-
-            ctx.body = { code:result.status, msg:'success' }
+            ctx.body = { code:result.status, msg:'success' }*/
         }
     }
 
