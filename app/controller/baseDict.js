@@ -14,6 +14,8 @@ module.exports = app => {
                 name: {type: 'string'}
                 /*tab: { type: 'string',   required: true },*/
             };
+
+            this.baseDict = this.service.baseDict;
         }
 
         async index() {

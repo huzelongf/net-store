@@ -14,21 +14,20 @@ module.exports = app => {
                 name: {type: 'string'}
                 /*tab: { type: 'string',   required: true },*/
             };
+            this.baseType = this.service.baseType;
         }
 
 
         async array() {
-            const token = this.ctx.session.globalToken;
             const  params = {};
-            const result = await this.service.baseType.array(token, params);
+            const result = await this.baseType.array(params);
             this.ctx.body = result.data;
             this.ctx.status = result.status;
         }
 
         async list() {
-            const token = this.ctx.session.globalToken;
             const  params = this.ctx.query;
-            const result = await this.service.baseType.list(token, params);
+            const result = await this.baseType.list(params);
             this.ctx.body = result.data;
             this.ctx.status = result.status;
         }
@@ -38,19 +37,17 @@ module.exports = app => {
         }
 
         async edit() {
-            const token = this.ctx.session.globalToken;
             const id = this.ctx.query.id;
-            const result = await this.service.baseType.edit(token, id);
+            const result = await this.baseType.edit(id);
             await  this.ctx.render('/baseType/edit.html', result.data);
         }
 
         async save() {
             const { ctx } = this;
             ctx.validate(this.createRule);
-            const token = this.ctx.session.globalToken;
             const params = ctx.request.body;
             params.clientId = this.app.config.sysConfig.appKey;
-            const result = await this.service.baseType.save(token, params);
+            const result = await this.baseType.save(params);
             ctx.body = { code:result.status, msg:'success' }
         }
     }

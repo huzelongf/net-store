@@ -9,30 +9,31 @@ module.exports = app => {
             super(ctx);
             this.api = this.app.config.api;
             this.helper = this.ctx.helper;
+            this.myToken = this.ctx.session.globalToken;
         }
 
 
-        async array(token, params) {
+        async array(params) {
             const  url = this.api.baseType_Array();
             const opt = {data: params};
-            return await this.helper.request(this.ctx, url, token, opt);
+            return await this.helper.request(this.ctx, url, this.myToken, opt);
         }
 
-        async list(token, params) {
-             const  url = this.api.baseType_list();
-             const opt = {data: params};
-             return await this.helper.request(this.ctx, url, token, opt);
+        async list(params) {
+            const  url = this.api.baseType_list();
+            const opt = {data: params};
+            return await this.helper.request(this.ctx, url, this.myToken, opt);
         }
 
-        async edit(token, id) {
-             const  url = this.api.baseType_edit(id);
-             return await this.helper.request(this.ctx, url, token, {});
+        async edit(id) {
+            const  url = this.api.baseType_edit(id);
+            return await this.helper.request(this.ctx, url, this.myToken, {});
         }
 
-        async save(token, params) {
-             const  url = this.api.baseType_sava();
-             const opt = {data: params, method: 'POST'};
-             return  await this.helper.request(this.ctx, url, token, opt);
+        async save(params) {
+            const  url = this.api.baseType_sava();
+            const opt = {data: params, method: 'POST'};
+            return  await this.helper.request(this.ctx, url, this.myToken, opt);
         }
 
     }
