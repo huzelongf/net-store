@@ -20,7 +20,7 @@ module.exports = app => {
         async array() {
             const token = this.ctx.session.globalToken;
             const  params = {};
-            const result = await this.service.baseType.get_baseType_array(token, params);
+            const result = await this.service.baseType.array(token, params);
             this.ctx.body = result.data;
             this.ctx.status = result.status;
         }
