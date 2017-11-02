@@ -21,7 +21,7 @@ module.exports = app => {
         }
 
         async edit(id) {
-            const url = this.api.baseType_edit(id);
+            const url = this.api.baseDict_edit(id);
             return await this.req(this.ctx, url, this.myToken, {});
         }
 

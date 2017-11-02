@@ -277,6 +277,15 @@
 
                                     <form class="form-inline">
                                         <div class="form-group">
+                                            <label for="keyWord">类型</label>
+                                            <select name="typeId" id="typeId" class="form-control" >
+                                                <option value="-1">--请选择--</option>
+                                                {% for item in data %}
+                                                <option value="{{item.id}}">{{item.name}}</option>
+                                                {%  endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="keyWord">关键字</label>
                                             <input type="text" class="form-control" id="keyWord" placeholder="商品类型名称\编码">
                                         </div>
@@ -352,7 +361,7 @@
             "ajax": {
                 "dataType": 'json',
                 "contentType": "application/json;charset=UTF-8",
-                "url": "/baseType",
+                "url": "/baseDict",
                 data: function (d) {
                     var arrObject = new Array();
                     var start = {"name": "start", "value": d.start};
@@ -360,8 +369,8 @@
                     var draw = {"name": "draw", "value": d.draw};
                     var parater = {name:'clientId', value:clientId};
                     arrObject.push(start, length, draw, parater);
-                    var keyWord = $("#keyWord").val();
-                    arrObject.push({"name": "keyWord", "value": keyWord});
+                    /*var keyWord = $("#keyWord").val();
+                    arrObject.push({"name": "keyWord", "value": keyWord});*/
 
                     return arrObject;
                 }
@@ -376,6 +385,7 @@
             columns: [
                 {data: null, title: "序号", orderable: false, width: '8%'},
                 {data: "code", title: "编码" , orderable:false, width: '10%'},
+                {data: "typeName", title: "类型" , orderable:false, width: '10%'},
                 {data: "name", title: "类型" , orderable:false},
                 {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
                     return row.status == 1 ? '生效' : '新增';
@@ -405,7 +415,7 @@
                 shadeClose: true,
                 shade: 0.8,
                 area: ['60%', '60%'],
-                content: ['/baseType/edit?id='+id,'yes']
+                content: ['/baseDict/edit?id='+id,'yes']
             });
         });
         $(".add_btn").on("click",function(){
@@ -415,7 +425,7 @@
                 shadeClose: true,
                 shade: 0.8,
                 area: ['60%', '60%'],
-                content: ['/baseType/create','yes']
+                content: ['/baseDict/create','yes']
             });
             /*layer.open({
                 type: 2,

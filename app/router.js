@@ -19,4 +19,6 @@ module.exports = app => {
     app.post('/baseType/save', 'baseType.save');
     /*baseDict*/
     app.get('/baseDict/index', 'baseDict.index');
+    app.get('/baseDict', 'baseDict.list');
+    app.get('/baseDict/edit', 'baseDict.edit');
 };

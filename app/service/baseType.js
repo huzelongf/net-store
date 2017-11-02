@@ -17,7 +17,9 @@ module.exports = app => {
         async array(params) {
             const  url = this.api.baseType_Array();
             const opt = {data: params};
-            return await this.req(this.ctx, url, this.myToken, opt);
+            const data = await this.req(this.ctx, url, this.myToken, opt);
+            const result = {data: data.data};
+            return result;
         }
 
         async list(params) {
