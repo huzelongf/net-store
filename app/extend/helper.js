@@ -14,7 +14,7 @@ module.exports = {
             headers: {Authorization: `Bearer ${token}`}
         }, opts);
         const result = await ctx.curl(`${url}`, opts);
-        this.checkSuccess(result);
+        ctx.helper.checkSuccess(result);
         return result;
     },
 
