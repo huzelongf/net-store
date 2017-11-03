@@ -21,15 +21,13 @@ module.exports = app => {
         async array() {
             const  params = {};
             const result = await this.baseType.array(params);
-            this.ctx.body = result.data;
-            this.ctx.status = result.status;
+            this.ctx.body = result;
         }
 
         async list() {
             const  params = this.ctx.query;
             const result = await this.baseType.list(params);
-            this.ctx.body = result.data;
-            this.ctx.status = result.status;
+            this.ctx.body = result;
         }
 
         async create() {
@@ -39,7 +37,7 @@ module.exports = app => {
         async edit() {
             const id = this.ctx.query.id;
             const result = await this.baseType.edit(id);
-            await  this.ctx.render('/baseType/edit.html', result.data);
+            await  this.ctx.render('/baseType/edit.html', result);
         }
 
         async save() {
@@ -48,7 +46,7 @@ module.exports = app => {
             const params = ctx.request.body;
             params.clientId = this.app.config.sysConfig.appKey;
             const result = await this.baseType.save(params);
-            ctx.body = { code:result.status, msg:'success' }
+            ctx.body = result;
         }
     }
 

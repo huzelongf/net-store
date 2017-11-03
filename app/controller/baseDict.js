@@ -27,8 +27,7 @@ module.exports = app => {
         async list() {
             const params = this.ctx.query;
             const result = await this.baseDict.list(params);
-            this.ctx.body = result.data;
-            this.ctx.status = result.status;
+            this.ctx.body = result;
         }
 
         async create() {
@@ -39,7 +38,7 @@ module.exports = app => {
             const id = this.ctx.query.id;
             const obj = await this.baseDict.edit(id);
             const result = await this.baseType.array({});
-            const opts = Object.assign(result, obj.data);
+            const opts = Object.assign(result, obj);
             await this.ctx.render('/baseDict/edit.html', opts);
         }
 

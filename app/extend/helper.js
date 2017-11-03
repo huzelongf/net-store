@@ -15,7 +15,20 @@ module.exports = {
         }, opts);
         const result = await ctx.curl(`${url}`, opts);
         ctx.helper.checkSuccess(result);
-        return result;
+        return result.data;
+    },
+
+    async requestSave(ctx, url, token, opts) {
+        opts = Object.assign({
+            timeout: ['30s', '30s'],
+            method: 'GET',
+            dataType: 'json',
+            contentType: 'json',
+            headers: {Authorization: `Bearer ${token}`}
+        }, opts);
+        const result = await ctx.curl(`${url}`, opts);
+        ctx.helper.checkSuccess(result);
+        return {data:result.data, code:result.status};
     },
 
     //请求结果检查
