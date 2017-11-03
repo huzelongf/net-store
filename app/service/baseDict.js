@@ -8,16 +8,15 @@ module.exports = app => {
         constructor(ctx) {
             super(ctx);
             this.api = this.app.config.api;
-            this.helper = this.ctx.helper;
             this.myToken = this.ctx.session.globalToken;
             this.req = this.ctx.helper.request;
+            this.reqSave = this.ctx.helper.requestSave;
         }
 
 
         async list(params) {
             const  url = this.api.baseDict_list();
-            const opt = {data: params};
-            return await this.req(this.ctx, url, this.myToken, opt);
+            return await this.req(this.ctx, url, this.myToken, {data: params});
         }
 
         async edit(id) {
@@ -27,8 +26,7 @@ module.exports = app => {
 
         async save(params) {
             const  url = this.api.baseDict_save();
-            const opt = {data: params, method: 'POST'};
-            return await this.req(this.ctx, url, this.myToken, opt);
+            return await this.reqSave(this.ctx, url, this.myToken, {data: params});
         }
     }
 

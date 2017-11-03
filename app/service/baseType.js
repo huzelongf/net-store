@@ -16,17 +16,13 @@ module.exports = app => {
 
         async array(params) {
             const  url = this.api.baseType_Array();
-            const opt = {data: params};
-            const data = await this.req(this.ctx, url, this.myToken, opt);
-            const result = {data: data};
-            return result;
+            const data = await this.req(this.ctx, url, this.myToken, {data: params});
+            return {data: data};
         }
 
         async list(params) {
-
             const  url = this.api.baseType_list();
-            const opt = {data: params};
-            return await this.req(this.ctx, url, this.myToken, opt);
+            return await this.req(this.ctx, url, this.myToken, {data: params});
         }
 
         async edit(id) {
@@ -36,8 +32,7 @@ module.exports = app => {
 
         async save(params) {
             const  url = this.api.baseType_sava();
-            const opt = {data: params, method: 'POST'};
-            return  await this.reqSave(this.ctx, url, this.myToken, opt);
+            return  await this.reqSave(this.ctx, url, this.myToken, {data: params});
         }
 
     }

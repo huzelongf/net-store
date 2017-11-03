@@ -26,8 +26,7 @@ module.exports = app => {
 
         async list() {
             const  params = this.ctx.query;
-            const result = await this.baseType.list(params);
-            this.ctx.body = result;
+            this.ctx.body = await this.baseType.list(params);
         }
 
         async create() {
@@ -45,8 +44,7 @@ module.exports = app => {
             ctx.validate(this.createRule);
             const params = ctx.request.body;
             params.clientId = this.app.config.sysConfig.appKey;
-            const result = await this.baseType.save(params);
-            ctx.body = result;
+            ctx.body = await this.baseType.save(params);
         }
     }
 

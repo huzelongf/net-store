@@ -26,8 +26,7 @@ module.exports = app => {
 
         async list() {
             const params = this.ctx.query;
-            const result = await this.baseDict.list(params);
-            this.ctx.body = result;
+            this.ctx.body = await this.baseDict.list(params);
         }
 
         async create() {

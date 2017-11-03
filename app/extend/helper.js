@@ -21,7 +21,7 @@ module.exports = {
     async requestSave(ctx, url, token, opts) {
         opts = Object.assign({
             timeout: ['30s', '30s'],
-            method: 'GET',
+            method: 'POST',
             dataType: 'json',
             contentType: 'json',
             headers: {Authorization: `Bearer ${token}`}
