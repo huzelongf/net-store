@@ -30,7 +30,8 @@ module.exports = app => {
         }
 
         async create() {
-
+            const result = await this.baseType.array({});
+            await this.ctx.render('/baseDict/edit.html', result);
         }
 
         async edit() {

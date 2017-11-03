@@ -369,9 +369,12 @@
                     var draw = {"name": "draw", "value": d.draw};
                     var parater = {name:'clientId', value:clientId};
                     arrObject.push(start, length, draw, parater);
-                    /*var keyWord = $("#keyWord").val();
-                    arrObject.push({"name": "keyWord", "value": keyWord});*/
-
+                    var keyWord = $("#keyWord").val();
+                    arrObject.push({"name": "keyWord", "value": keyWord});
+                    var typeId = $("#typeId").val();
+                    if (typeId !='-1') {
+                        arrObject.push({"name": "typeId", "value": typeId});
+                    }
                     return arrObject;
                 }
             },
@@ -386,7 +389,7 @@
                 {data: null, title: "序号", orderable: false, width: '8%'},
                 {data: "code", title: "编码" , orderable:false, width: '10%'},
                 {data: "typeName", title: "类型" , orderable:false, width: '10%'},
-                {data: "name", title: "类型" , orderable:false},
+                {data: "name", title: "名称" , orderable:false},
                 {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
                     return row.status == 1 ? '生效' : '新增';
                 } },
@@ -427,14 +430,6 @@
                 area: ['60%', '60%'],
                 content: ['/baseDict/create','yes']
             });
-            /*layer.open({
-                type: 2,
-                title: '编辑',
-                shadeClose: true,
-                shade: 0.8,
-                area: ['60%', '60%'],
-                content: ['/jsp/goods_type_edit.jsp','yes']
-            });*/
         })
 
         $('.btn-search').on('click', function(){
