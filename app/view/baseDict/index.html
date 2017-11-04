@@ -400,11 +400,30 @@
             order: []
         })
 
-        $(".delete_btn").on('click',function(){
+        $(document).on('click','.delete_btn',function(){
+            var id  = $(this).attr('myData');
+            var data = {id: id, status: -1};
             layer.confirm('您确定删除吗？', {
                 btn: ['确定','取消'] //按钮
-            }, function(){
-                layer.msg('删除成功', {icon: 1});
+            }, function(index){
+                //layer.msg('删除成功', {icon: 1});
+
+                $.ajax({
+                    url : "/baseDict/update?_csrf={{ ctx.csrf | safe }}",
+                    type: "PUT",
+                    dataType:'json',
+                    data: data,
+                    success: function(ds) {
+                        if (ds.code == 200) {
+                            refesh();
+                            parent.layer.close(index);
+                        }
+                    },
+                    error : function() {
+                        alert("系统发生异常，请稍后再试");
+                    },
+                });
+
             }, function(){
                 layer.msg('取消', {icon: 2});
             });

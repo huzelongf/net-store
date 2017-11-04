@@ -20,5 +20,8 @@ module.exports = app => {
     /*baseDict*/
     app.get('/baseDict/index', 'baseDict.index');
     app.get('/baseDict', 'baseDict.list');
+    app.get('/baseDict/create', 'baseDict.create');
     app.get('/baseDict/edit', 'baseDict.edit');
+    app.post('/baseDict/save', 'baseDict.save');
+    app.put('/baseDict/update', 'baseDict.update');
 };

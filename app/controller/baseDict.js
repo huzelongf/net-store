@@ -12,7 +12,11 @@ module.exports = app => {
                 //id: { format: /\d+/, required: false },
                 code: {type: 'string'},
                 name: {type: 'string'}
-                /*tab: { type: 'string',   required: true },*/
+            };
+
+            this.updateRule = {
+                id: { type: 'string',   required: true },
+                status: { type: 'string',   required: true }
             };
 
             this.baseDict = this.service.baseDict;
@@ -43,7 +47,18 @@ module.exports = app => {
         }
 
         async save() {
+            const { ctx } = this;
+            ctx.validate(this.createRule);
+            const params = ctx.request.body;
+            params.clientId = this.app.config.sysConfig.appKey;
+            ctx.body = await this.baseDict.save(params);
+        }
 
+        async update() {
+            const { ctx } = this;
+            ctx.validate(this.updateRule);
+            const params = ctx.request.body;
+            ctx.body = await this.baseDict.save(params);
         }
 
     }
