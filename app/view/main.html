@@ -354,7 +354,7 @@
                 "contentType": "application/json;charset=UTF-8",
                 "url": "/baseType",
                 data: function (d) {
-                    var arrObject = new Array();
+                    var arrObject = [];
                     var start = {"name": "start", "value": d.start};
                     var length = {"name": "length", "value": d.length};
                     var draw = {"name": "draw", "value": d.draw};
@@ -417,14 +417,6 @@
                 area: ['60%', '60%'],
                 content: ['/baseType/create','yes']
             });
-            /*layer.open({
-                type: 2,
-                title: '编辑',
-                shadeClose: true,
-                shade: 0.8,
-                area: ['60%', '60%'],
-                content: ['/jsp/goods_type_edit.jsp','yes']
-            });*/
         })
 
         $('.btn-search').on('click', function(){
