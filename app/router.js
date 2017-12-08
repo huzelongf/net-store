@@ -24,4 +24,19 @@ module.exports = app => {
     app.get('/baseDict/edit', 'baseDict.edit');
     app.post('/baseDict/save', 'baseDict.save');
     app.put('/baseDict/update', 'baseDict.update');
+
+
+   /*memberLevel*/
+    app.get('/memberLevel/index', 'memberLevel.index');
+    app.get('/memberLevel', 'memberLevel.list');
+    app.get('/memberLevel/edit', 'memberLevel.edit');
+    app.get('/memberLevel/create', 'memberLevel.create');
+    app.post('/memberLevel/save', 'memberLevel.save');
+
+    /*userDepartment*/
+    app.get('/userDepartment/index', 'userDepartment.index');
+    app.get('/userDepartment', 'userDepartment.list');
+    app.get('/userDepartment/edit', 'userDepartment.edit');
+    app.get('/userDepartment/create', 'userDepartment.create');
+    app.post('/userDepartment/save', 'userDepartment.save');
 };

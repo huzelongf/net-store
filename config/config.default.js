@@ -70,6 +70,31 @@ module.exports = appInfo => {
           },
           baseDict_save: function () {
               return `${this.remote}/api/baseDict`;
+          },
+
+          /*memberLevel*/
+          memberLevel_Array : function () {
+              return `${this.remote}/api/memberLevel/array/${config.sysConfig.appKey}`;
+          },
+          memberLevel_list: function () {
+              return `${this.remote}/api/memberLevel/list/${config.sysConfig.appKey}`;
+          },
+          memberLevel_edit: function (id) {
+              return `${this.remote}/api/memberLevel/${id}`;
+          },
+          memberLevel_save: function () {
+              return `${this.remote}/api/memberLevel`;
+          },
+
+          /*userDepartment*/
+          userDepartment_list: function () {
+              return `${this.remote}/api/userDepartment/list/${config.sysConfig.appKey}`;
+          },
+          userDepartment_edit: function (id) {
+              return `${this.remote}/api/userDepartment/${id}`;
+          },
+          userDepartment_save: function () {
+              return `${this.remote}/api/userDepartment`;
           }
       }
   };

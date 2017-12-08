@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>灵灵G分销仓存管理系统</title>
+    <title>灵灵G分销仓存管理系统--公司名称</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -110,9 +110,9 @@
                 </a>
                     <ul class="treeview-menu">
                         <li ><a href="#">数据字典类型</a></li>
-                        <li class="active"><a href="#">数据字典</a></li>
+                        <li><a href="/baseDict/index">数据字典</a></li>
                         <li ><a href="/memberLevel/index">会员级别</a></li>
-                        <li ><a href="/userDepartment/index">会员公司信息</a></li>
+                        <li class="active"><a href="#">会员公司信息</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -238,7 +238,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 基础数据</a></li>
-                <li class="active">商品类别</li>
+                <li class="active">公司名称</li>
             </ol>
         </section>
 
@@ -255,18 +255,12 @@
                     <!-- TABLE: LATEST ORDERS -->
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">商品类别</h3><a class="btn btn-xs add_btn pull-right"><i class="fa fa-plus"></i> 新增</a>
+                            <h3 class="box-title">公司名称</h3><a class="btn btn-xs add_btn pull-right"><i class="fa fa-plus"></i> 新增</a>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-11 col-sm-offset-0">
-                                    <!-- <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control">
-                                        <span class="input-group-btn">
-                                          <button type="button" class="btn btn-info btn-flat">搜索</button>
-                                        </span>
-                                    </div> -->
 
                                     <form class="form-inline">
                                         <div class="form-group">
@@ -274,17 +268,15 @@
                                             <select name="typeId" id="typeId" class="form-control" >
                                                 <option value="-1">--请选择--</option>
                                                 {% for item in data %}
-                                                <option value="{{item.id}}">{{item.name}}</option>
+                                                <option value="{{item.id}}">{{item.memberLevelMsg}}</option>
                                                 {%  endfor %}
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="keyWord">关键字</label>
-                                            <input type="text" class="form-control" id="keyWord" placeholder="商品类型名称\编码">
+                                            <input type="text" class="form-control" id="keyWord" placeholder="公司编码\公司名称">
                                         </div>
                                         <button type="button" class="btn btn-default btn-search">搜索</button>
-
-                                        <!-- <div class="col-sm-1"><a class="btn btn-xs add_btn pull-right"><i class="fa fa-plus"></i> 新增</a></div> -->
                                     </form>
 
                                 </div>
@@ -354,7 +346,7 @@
             "ajax": {
                 "dataType": 'json',
                 "contentType": "application/json;charset=UTF-8",
-                "url": "/baseDict",
+                "url": "/userDepartment",
                 data: function (d) {
                     var arrObject = [];
                     var start = {"name": "start", "value": d.start};
@@ -366,7 +358,7 @@
                     arrObject.push({"name": "keyWord", "value": keyWord});
                     var typeId = $("#typeId").val();
                     if (typeId !='-1') {
-                        arrObject.push({"name": "typeId", "value": typeId});
+                        arrObject.push({"name": "memberLevelId", "value": typeId});
                     }
                     return arrObject;
                 }
@@ -380,9 +372,13 @@
             },
             columns: [
                 {data: null, title: "序号", orderable: false, width: '8%'},
-                {data: "code", title: "编码" , orderable:false, width: '10%'},
-                {data: "typeName", title: "类型" , orderable:false, width: '10%'},
-                {data: "name", title: "名称" , orderable:false},
+                {data: "memberLevelId", title: "级别" , orderable:false, width: '10%'},
+                {data: "departcode", title: "公司编码" , orderable:false},
+                {data: "departname", title: "公司名称" , orderable:false},
+                {data: "legalPerson", title: "法人代表" , orderable:false},
+                {data: "cardNumber", title: "营业证书号" , orderable:false},
+                {data: "phone", title: "联系电话" , orderable:false},
+                {data: "address", title: "公司地址" , orderable:false},
                 {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
                     return row.status == 1 ? '生效' : '新增';
                 } },
@@ -402,7 +398,7 @@
                 //layer.msg('删除成功', {icon: 1});
 
                 $.ajax({
-                    url : "/baseDict/update?_csrf={{ ctx.csrf | safe }}",
+                    url : "/userDepartment/update?_csrf={{ ctx.csrf | safe }}",
                     type: "PUT",
                     dataType:'json',
                     data: data,
@@ -430,7 +426,7 @@
                 shadeClose: true,
                 shade: 0.8,
                 area: ['60%', '60%'],
-                content: ['/baseDict/edit?id='+id,'yes']
+                content: ['/userDepartment/edit?id='+id,'yes']
             });
         });
         $(".add_btn").on("click",function(){
@@ -440,7 +436,7 @@
                 shadeClose: true,
                 shade: 0.8,
                 area: ['60%', '60%'],
-                content: ['/baseDict/create','yes']
+                content: ['/userDepartment/create','yes']
             });
         })
 
