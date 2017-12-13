@@ -39,4 +39,12 @@ module.exports = app => {
     app.get('/userDepartment/edit', 'userDepartment.edit');
     app.get('/userDepartment/create', 'userDepartment.create');
     app.post('/userDepartment/save', 'userDepartment.save');
+
+    /*user*/
+    app.get('/user/index', 'user.index');
+    app.get('/user', 'user.list');
+    app.get('/user/edit', 'user.edit');
+    app.get('/user/create', 'user.create');
+    app.get('/user/treeJson', 'user.treeJson');
+    app.post('/user/save', 'user.save');
 };

@@ -95,6 +95,20 @@ module.exports = appInfo => {
           },
           userDepartment_save: function () {
               return `${this.remote}/api/userDepartment`;
+          },
+
+          /*user*/
+          user_list: function () {
+              return `${this.remote}/api/user/list/${config.sysConfig.appKey}`;
+          },
+          user_edit: function (id) {
+              return `${this.remote}/api/user/${id}`;
+          },
+          user_save: function () {
+              return `${this.remote}/api/user`;
+          },
+          user_treeJson: function () {
+              return `${this.remote}/api/user/memberLevel/${config.sysConfig.appKey}`;
           }
       }
   };
