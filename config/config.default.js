@@ -96,6 +96,9 @@ module.exports = appInfo => {
           userDepartment_save: function () {
               return `${this.remote}/api/userDepartment`;
           },
+          userDepartment_update: function () {
+              return `${this.remote}/api/userDepartment/update`;
+          },
 
           /*user*/
           user_list: function () {

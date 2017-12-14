@@ -28,6 +28,11 @@ module.exports = app => {
             const  url = this.api.userDepartment_save();
             return await this.reqSave(this.ctx, url, this.myToken, {data: params});
         }
+
+        async update(params) {
+            const  url = this.api.userDepartment_update();
+            return await this.reqSave(this.ctx, url, this.myToken, {data: params});
+        }
     }
 
 

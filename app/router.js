@@ -39,6 +39,7 @@ module.exports = app => {
     app.get('/userDepartment/edit', 'userDepartment.edit');
     app.get('/userDepartment/create', 'userDepartment.create');
     app.post('/userDepartment/save', 'userDepartment.save');
+    app.post('/userDepartment/updateStatus', 'userDepartment.updateStatus');
 
     /*user*/
     app.get('/user/index', 'user.index');

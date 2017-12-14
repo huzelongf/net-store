@@ -49,6 +49,14 @@ module.exports = app => {
             params.clientId = this.app.config.sysConfig.appKey;
             ctx.body = await this.userDepartment.save(params);
         }
+
+        async updateStatus() {
+            const {ctx} = this;
+            const params = ctx.request.body;
+            console.log(params);
+            await this.userDepartment.update(params);
+            ctx.body = {code:200};
+        }
     }
 
     return UserDepartmentController;

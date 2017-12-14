@@ -278,6 +278,9 @@
                                             <input type="text" class="form-control" id="keyWord" placeholder="公司编码\公司名称">
                                         </div>
                                         <button type="button" class="btn btn-default btn-search">搜索</button>
+
+                                        <button type="button" class="btn btn-default btn-start">启用</button>
+                                        <button type="button" class="btn btn-default btn-stop">停用</button>
                                     </form>
 
                                 </div>
@@ -338,11 +341,15 @@
             "language": {
                 "url": "/public/bower_components/datatables.net/js/chinese.json"
             },
-            processing: true,
-            serverSide: true,
+            lengthChange : false,
+            ordering : false,
+            processing : true,
+            serverSide : true,
+            searching : false,
             paging: true,
-            searching: false,
-            bLengthChange: false,
+            filter: false,
+            wrapper: true,
+            pageLength : 15,
             pagingType: "simple_numbers",
             "ajax": {
                 "dataType": 'json',
@@ -364,15 +371,24 @@
                     return arrObject;
                 }
             },
-            drawCallback: function (settings) {
-                var api = this.api();
-                var startIndex = api.context[0]._iDisplayStart;
-                api.column(0).nodes().each(function (cell, i) {
-                    cell.innerHTML = startIndex + i + 1;
-                });
-            },
             columns: [
-                {data: null, title: "序号", orderable: false, width: '8%'},
+                {
+                    render: function ( data, type, row ) {
+                        return '<label class="pos-rel"><input type="checkbox" value="'+row.id+'" class="ace aceSingle" /><span class="lbl"></span></label>';
+                    },
+                    className: "center sorting_disabled",
+                    title: '<label class="pos-rel"><input type="checkbox" class="ace aceAll" /><span class="lbl"></span></label>',
+                },
+                {
+                    defaultContent: "",
+                    title: "序号",
+                    width:'6%',
+                    orderable: false,
+                    createdCell : function( cell, cellData, rowData, rowIndex, colIndex ){
+                        var pageInfo = dt.page.info();
+                        $(cell).html(rowIndex + pageInfo.start + 1);
+                    }
+                },
                 {data: "memberLevelId", title: "级别" , orderable:false, width: '10%'},
                 {data: "departcode", title: "公司编码" , orderable:false},
                 {data: "departname", title: "公司名称" , orderable:false},
@@ -386,9 +402,84 @@
                 {data: "id", title: "操作", width: '15%', orderable:false, render:function(data, type, row){
                     return '<a class="btn btn-xs edit_btn" myData="'+row.id+'"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn" myData="'+row.id+'"><i class="fa fa-close"></i> 删除</a>';
                 }}
-            ],
-            order: []
-        })
+            ]
+            //order: []
+        });
+
+        $('.btn-start').on('click', function () {
+            var len = $(".aceSingle:checkbox:checked").length;
+            if (!len) {
+                layer.alert('请选择数据项');
+            } else {
+                var ids = [];
+                $(".aceSingle:checkbox:checked").each(function () {
+                    ids.push($(this).val());
+                });
+                $.ajax({
+                    url : "/userDepartment/updateStatus?_csrf={{ ctx.csrf | safe }}",
+                    type: "POST",
+                    dataType:'json',
+                    data: {ids:ids, status:1},
+                    success: function(data) {
+                        if (data.code == 200) {
+                            refesh();
+                        }
+                    },
+                    error : function() {
+                        alert("系统发生异常，请稍后再试");
+                    },
+                });
+            }
+        });
+
+        $('.btn-stop').on('click', function () {
+            var len = $(".aceSingle:checkbox:checked").length;
+            if (!len) {
+                layer.alert('请选择数据项');
+            } else {
+                var ids = [];
+                $(".aceSingle:checkbox:checked").each(function () {
+                    ids.push($(this).val());
+                });
+                $.ajax({
+                    url : "/userDepartment/updateStatus?_csrf={{ ctx.csrf | safe }}",
+                    type: "POST",
+                    dataType:'json',
+                    data: {ids:ids, status:-1},
+                    success: function(data) {
+                        if (data.code == 200) {
+                            refesh();
+                        }
+                    },
+                    error : function() {
+                        alert("系统发生异常，请稍后再试");
+                    },
+                });
+            }
+        });
+
+
+        var active_class = 'active';
+        $('#example1').on('click', 'th input[type=checkbox]', function(){
+            var th_checked = this.checked;
+            $(this).closest('table').find('tbody > tr').each(function(){
+                var row = this;
+                //$(row).find('input[type=checkbox]').eq(0).prop('checked', true);
+                if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+                else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+            });
+        });
+        $(document).on("click",".aceSingle:checkbox",function(){
+            if(!$(this).prop("checked")){
+                $(this).prop('checked', false);
+                $(".aceAll").prop('checked', false);
+            }else{
+                $(this).prop('checked', true);
+                if($(".aceSingle:checkbox").length==$(".aceSingle:checkbox:checked").length){
+                    $(".aceAll:checkbox").prop('checked', true);
+                }
+            }
+        });
 
         $(document).on('click','.delete_btn',function(){
             var id  = $(this).attr('myData');
