@@ -269,7 +269,7 @@
                                             <select name="typeId" id="typeId" class="form-control" >
                                                 <option value="-1">--请选择--</option>
                                                 {% for item in data %}
-                                                <option value="{{item.id}}">{{item.memberLevelMsg}}</option>
+                                                <option value="{{item.id}}">{{item.name}}</option>
                                                 {%  endfor %}
                                             </select>
                                         </div>
@@ -281,6 +281,7 @@
 
                                         <button type="button" class="btn btn-default btn-start">启用</button>
                                         <button type="button" class="btn btn-default btn-stop">停用</button>
+                                        <button type="button" class="btn btn-default btn-del">删除</button>
                                     </form>
 
                                 </div>
@@ -397,10 +398,22 @@
                 {data: "phone", title: "联系电话" , orderable:false},
                 {data: "address", title: "公司地址" , orderable:false},
                 {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
-                    return row.status == 1 ? '<span class="badge bg-green">生效</span>' : '<span class="badge bg-red">新增</span>';
+                    //return row.status == 1 ? '<span class="badge bg-green">生效</span>' : '<span class="badge bg-red">新增</span>';
+                    var result = '';
+                    if (row.status == 1) {
+                        result =  '<span class="badge bg-green">生效</span>';
+                    }
+                    if (row.status == 2) {
+                        result =  '<span class="badge bg-red">停用</span>';
+                    }
+                    if (row.status == 0) {
+                        result =  '<span class="badge bg-red">新增</span>';
+                    }
+
+                    return result;
                 } },
                 {data: "id", title: "操作", width: '15%', orderable:false, render:function(data, type, row){
-                    return '<a class="btn btn-xs edit_btn" myData="'+row.id+'"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn" myData="'+row.id+'"><i class="fa fa-close"></i> 删除</a>';
+                    return '<a class="btn btn-xs edit_btn" myData="'+row.id+'"><i class="fa fa-edit"></i> 编辑</a> ';
                 }}
             ]
             //order: []
@@ -415,20 +428,25 @@
                 $(".aceSingle:checkbox:checked").each(function () {
                     ids.push($(this).val());
                 });
-                $.ajax({
-                    url : "/userDepartment/updateStatus?_csrf={{ ctx.csrf | safe }}",
-                    type: "POST",
-                    dataType:'json',
-                    data: {ids:ids, status:1},
-                    success: function(data) {
-                        if (data.code == 200) {
-                            refesh();
-                        }
-                    },
-                    error : function() {
-                        alert("系统发生异常，请稍后再试");
-                    },
-                });
+                layer.confirm('您确定启用吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(index){
+                    $.ajax({
+                        url : "/userDepartment/updateStatus?_csrf={{ ctx.csrf | safe }}",
+                        type: "POST",
+                        dataType:'json',
+                        data: {ids:ids, status:1},
+                        success: function(data) {
+                            if (data.code == 200) {
+                                refesh();
+                            }
+                        },
+                        error : function() {
+                            alert("系统发生异常，请稍后再试");
+                        },
+                    });
+                })
+
             }
         });
 
@@ -441,20 +459,60 @@
                 $(".aceSingle:checkbox:checked").each(function () {
                     ids.push($(this).val());
                 });
-                $.ajax({
-                    url : "/userDepartment/updateStatus?_csrf={{ ctx.csrf | safe }}",
-                    type: "POST",
-                    dataType:'json',
-                    data: {ids:ids, status:-1},
-                    success: function(data) {
-                        if (data.code == 200) {
-                            refesh();
-                        }
-                    },
-                    error : function() {
-                        alert("系统发生异常，请稍后再试");
-                    },
+                layer.confirm('您确定停用吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(index){
+                    $.ajax({
+                        url : "/userDepartment/updateStatus?_csrf={{ ctx.csrf | safe }}",
+                        type: "POST",
+                        dataType:'json',
+                        data: {ids:ids, status:2},
+                        success: function(data) {
+                            if (data.code == 200) {
+                                refesh();
+                            }
+                        },
+                        error : function() {
+                            alert("系统发生异常，请稍后再试");
+                        },
+                    });
+                })
+
+            }
+        });
+
+        $('.btn-del').on('click', function () {
+            var len = $(".aceSingle:checkbox:checked").length;
+            if (!len) {
+                layer.alert('请选择数据项');
+            } else {
+                var ids = [];
+                $(".aceSingle:checkbox:checked").each(function () {
+                    ids.push($(this).val());
                 });
+                layer.confirm('您确定删除吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(index){
+                    $.ajax({
+                        url : "/userDepartment/updateStatus?_csrf={{ ctx.csrf | safe }}",
+                        type: "POST",
+                        dataType:'json',
+                        data: {ids:ids, status:-1},
+                        success: function(data) {
+                            if (data.code == 200) {
+                                refesh();
+                            }
+                        },
+                        error : function() {
+                            alert("系统发生异常，请稍后再试");
+                        },
+                    });
+
+                }, function(){
+                    layer.msg('取消', {icon: 2});
+                });
+
+
             }
         });
 
@@ -484,30 +542,7 @@
         $(document).on('click','.delete_btn',function(){
             var id  = $(this).attr('myData');
             var data = {id: id, status: -1};
-            layer.confirm('您确定删除吗？', {
-                btn: ['确定','取消'] //按钮
-            }, function(index){
-                //layer.msg('删除成功', {icon: 1});
 
-                $.ajax({
-                    url : "/userDepartment/update?_csrf={{ ctx.csrf | safe }}",
-                    type: "PUT",
-                    dataType:'json',
-                    data: data,
-                    success: function(ds) {
-                        if (ds.code == 200) {
-                            refesh();
-                            parent.layer.close(index);
-                        }
-                    },
-                    error : function() {
-                        alert("系统发生异常，请稍后再试");
-                    },
-                });
-
-            }, function(){
-                layer.msg('取消', {icon: 2});
-            });
         })
 
         $(document).on("click", ".edit_btn", function () {
