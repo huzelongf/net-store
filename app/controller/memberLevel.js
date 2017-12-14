@@ -14,6 +14,10 @@ module.exports = app => {
                 memberLevelMsg: {type: 'string'}
                 /*tab: { type: 'string',   required: true },*/
             };
+            this.updateRule = {
+                id: {type: 'string', required: true},
+                status: {type: 'string', required: true}
+            };
             this.memberLevel = this.service.memberLevel;
         }
 
@@ -44,6 +48,15 @@ module.exports = app => {
             params.clientId = this.app.config.sysConfig.appKey;
             ctx.body = await this.memberLevel.save(params);
         }
+
+        async update() {
+            const { ctx } = this;
+            ctx.validate(this.updateRule);
+            const params = ctx.request.body;
+            ctx.body = await this.memberLevel.save(params);
+        }
+
+
     }
 
     return MemberLevelController;

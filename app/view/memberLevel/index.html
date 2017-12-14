@@ -260,28 +260,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-11 col-sm-offset-0">
 
-                                    <form class="form-inline">
-                                        <div class="form-group">
-                                            <label for="keyWord">类型</label>
-                                            <select name="typeId" id="typeId" class="form-control" >
-                                                <option value="-1">--请选择--</option>
-                                                {% for item in data %}
-                                                <option value="{{item.id}}">{{item.name}}</option>
-                                                {%  endfor %}
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="keyWord">关键字</label>
-                                            <input type="text" class="form-control" id="keyWord" placeholder="商品类型名称\编码">
-                                        </div>
-                                        <button type="button" class="btn btn-default btn-search">搜索</button>
-                                    </form>
-
-                                </div>
-                            </div>
                             <table id="example1" class="table table-striped table-bordered table-hover tableWidth">
 
                             </table>
@@ -355,12 +334,6 @@
                     var draw = {"name": "draw", "value": d.draw};
                     var parater = {name:'clientId', value:clientId};
                     arrObject.push(start, length, draw, parater);
-                    var keyWord = $("#keyWord").val();
-                    arrObject.push({"name": "keyWord", "value": keyWord});
-                    var typeId = $("#typeId").val();
-                    if (typeId !='-1') {
-                        arrObject.push({"name": "typeId", "value": typeId});
-                    }
                     return arrObject;
                 }
             },
@@ -376,7 +349,7 @@
                 {data: "memberLevel", title: "级别" , orderable:false, width: '10%'},
                 {data: "memberLevelMsg", title: "名称" , orderable:false},
                 {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
-                    return row.status == 1 ? '生效' : '新增';
+                    return row.status == 1 ? '<span class="badge bg-green">生效</span>' : '<span class="badge bg-red">新增</span>';
                 } },
                 {data: "id", title: "操作", width: '15%', orderable:false, render:function(data, type, row){
                     return '<a class="btn btn-xs edit_btn" myData="'+row.id+'"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn" myData="'+row.id+'"><i class="fa fa-close"></i> 删除</a>';
@@ -395,7 +368,7 @@
 
                 $.ajax({
                     url : "/memberLevel/update?_csrf={{ ctx.csrf | safe }}",
-                    type: "PUT",
+                    type: "POST",
                     dataType:'json',
                     data: data,
                     success: function(ds) {

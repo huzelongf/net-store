@@ -32,6 +32,7 @@ module.exports = app => {
     app.get('/memberLevel/edit', 'memberLevel.edit');
     app.get('/memberLevel/create', 'memberLevel.create');
     app.post('/memberLevel/save', 'memberLevel.save');
+    app.post('/memberLevel/update', 'memberLevel.update');
 
     /*userDepartment*/
     app.get('/userDepartment/index', 'userDepartment.index');

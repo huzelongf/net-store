@@ -397,7 +397,7 @@
                 {data: "phone", title: "联系电话" , orderable:false},
                 {data: "address", title: "公司地址" , orderable:false},
                 {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
-                    return row.status == 1 ? '生效' : '新增';
+                    return row.status == 1 ? '<span class="badge bg-green">生效</span>' : '<span class="badge bg-red">新增</span>';
                 } },
                 {data: "id", title: "操作", width: '15%', orderable:false, render:function(data, type, row){
                     return '<a class="btn btn-xs edit_btn" myData="'+row.id+'"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn" myData="'+row.id+'"><i class="fa fa-close"></i> 删除</a>';

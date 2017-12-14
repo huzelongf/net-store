@@ -459,8 +459,8 @@
             type: "GET",
             dataType:'json',
             data: {},
-            success: function(ds) {
-                zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, ds);
+            success: function(data) {
+                zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, data);
             },
             error : function() {
                 alert("系统发生异常，请稍后再试");
@@ -490,14 +490,15 @@
             });
         })
         $(".edit_btn,.add_btn").on("click",function(){
-            layer.open({
+            /*layer.open({
                 type: 2,
                 title: '编辑',
                 shadeClose: true,
                 shade: 0.8,
                 area: ['70%', '70%'],
-                content: ['/jsp/user_edit.jsp','yes'] //iframe的url
-            });
+                content: ['/jsp/user_edit.jsp','yes']
+            });*/
+            location.href="/user/edit"
         })
 
     })
