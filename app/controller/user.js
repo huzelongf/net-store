@@ -18,7 +18,8 @@ module.exports = app => {
                 /*tab: { type: 'string',   required: true },*/
             };
             this.user = this.service.user;
-            //this.memberLevel = this.service.memberLevel;
+            this.userDepartment = this.service.userDepartment;
+            this.baseType = this.service.baseType;
         }
 
 
@@ -40,16 +41,24 @@ module.exports = app => {
         }
 
         async create() {
-            //const result = await this.memberLevel.array({});
+
             await  this.ctx.render('/user/edit.html', {});
         }
 
         async edit() {
-            const id = this.ctx.query.id;
+            const  memberLevelId =  this.ctx.query.memberLevelId;
+            //const data = this.userDepartment.array(memberLevelId);
+            //console.log(`---------memberLevelId:${memberLevelId}-----------`);
+            //console.log('---------code:' +data.code+ '-----------');
+            //const id = this.ctx.query.id;
             /*const obj = await this.User.edit(id);
             const result = await this.memberLevel.array({});
             const opts = Object.assign(result, obj);*/
-            await  this.ctx.render('/user/edit.html', {});
+
+            const result = await this.userDepartment.array(memberLevelId);
+            console.log('---------result:' + JSON.stringify(result) + '-----------');
+
+            await  this.ctx.render('/user/edit.html', result);
         }
 
         async save() {
@@ -57,6 +66,7 @@ module.exports = app => {
             ctx.validate(this.createRule);
             const params = ctx.request.body;
             params.clientId = this.app.config.sysConfig.appKey;
+            console.log('---------params:' + JSON.stringify(params) + '-----------');
             ctx.body = await this.user.save(params);
         }
     }

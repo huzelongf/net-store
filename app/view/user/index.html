@@ -432,10 +432,13 @@
      user experience. -->
 <!-- page script -->
 <script>
+    var memberLevelId = 0;
     $(function () {
         var zTreeObj;
         function zTreeOnClick(event, treeId, treeNode) {
-            if(!treeNode.isParent){
+            if(treeNode.isLevel){
+                memberLevelId = treeNode.id;
+                //alert(treeNode.id + ", " + treeNode.name+" isParent:"+treeNode.isParent);
                 //alert(treeNode.tId + ", " + treeNode.name+" isParent:"+treeNode.isParent);
                /* $.get("/jsp/table1.jsp", function(result){
                     $('#table_example1').html(result);
@@ -499,7 +502,7 @@
                 area: ['70%', '70%'],
                 content: ['/jsp/user_edit.jsp','yes']
             });*/
-            location.href="/user/edit"
+            location.href=`/user/edit?memberLevelId=${memberLevelId}`
         })
 
     })

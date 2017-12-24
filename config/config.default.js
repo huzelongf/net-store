@@ -99,6 +99,9 @@ module.exports = appInfo => {
           userDepartment_update: function () {
               return `${this.remote}/api/userDepartment/update`;
           },
+          userDepartment_array: function (memberLevelId) {
+              return `${this.remote}/api/userDepartment/array/${config.sysConfig.appKey}/${memberLevelId}`;
+          },
 
           /*user*/
           user_list: function () {

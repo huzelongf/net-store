@@ -33,6 +33,13 @@ module.exports = app => {
             const  url = this.api.userDepartment_update();
             return await this.reqSave(this.ctx, url, this.myToken, {data: params});
         }
+
+
+        async array(params) {
+            const  url = this.api.userDepartment_array(params);
+            const data = await this.req(this.ctx, url, this.myToken, {});
+            return {data: data};
+        }
     }
 
 
