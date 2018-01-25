@@ -37,6 +37,9 @@ module.exports = app => {
 
         async list() {
             const  params = this.ctx.query;
+            console.log(JSON.stringify(params));
+            //params.departId = 5;
+            //const  params = {'departId':1};
             this.ctx.body = await this.user.list(params);
         }
 

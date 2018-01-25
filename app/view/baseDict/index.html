@@ -447,7 +447,7 @@
 
         $('.btn-search').on('click', function(){
 
-            $("#example1").DataTable().draw();
+            $("#example1").DataTable().ajax.reload( null, false );
         });
 
     })

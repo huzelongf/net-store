@@ -316,7 +316,6 @@
                                         <th>姓名</th>
                                         <th>性别</th>
                                         <th>手机号</th>
-                                        <th>身份证</th>
                                         <th>邮箱</th>
                                         <th>状态</th>
                                         <th>操作</th>
@@ -330,7 +329,6 @@
                                         <td>张三</td>
                                         <td>男</td>
                                         <td>13800138000</td>
-                                        <td>430524199001011321</td>
                                         <td>zhangsan@163.com</td>
                                         <td><span class="badge bg-green">有效</span></td>
                                         <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td><!-- <i class="fa fa-exchange"></i> -->
@@ -342,7 +340,6 @@
                                         <td>张三</td>
                                         <td>男</td>
                                         <td>13800138001</td>
-                                        <td>430524199001011321</td>
                                         <td>zhangsan@163.com</td>
                                         <td><span class="badge bg-red">无效</span></td>
                                         <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
@@ -354,7 +351,6 @@
                                         <td>张三</td>
                                         <td>男</td>
                                         <td>13800138002</td>
-                                        <td>430524199001011321</td>
                                         <td>zhangsan@163.com</td>
                                         <td><span class="badge bg-green">有效</span></td>
                                         <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
@@ -366,7 +362,6 @@
                                         <td>张三</td>
                                         <td>男</td>
                                         <td>13800138003</td>
-                                        <td>430524199001011321</td>
                                         <td>zhangsan@163.com</td>
                                         <td><span class="badge bg-green">有效</span></td>
                                         <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
@@ -378,7 +373,6 @@
                                         <td>张三</td>
                                         <td>男</td>
                                         <td>13800138004</td>
-                                        <td>430524199001011321</td>
                                         <td>zhangsan@163.com</td>
                                         <td><span class="badge bg-green">有效</span></td>
                                         <td><a class="btn btn-xs edit_btn"><i class="fa fa-edit"></i> 编辑</a> <a class="btn btn-xs delete_btn"><i class="fa fa-close"></i> 删除</a></td>
@@ -432,7 +426,7 @@
      user experience. -->
 <!-- page script -->
 <script>
-    var memberLevelId = 0;
+    var example1, memberLevelId = -1;
     $(function () {
         var zTreeObj;
         function zTreeOnClick(event, treeId, treeNode) {
@@ -443,6 +437,7 @@
                /* $.get("/jsp/table1.jsp", function(result){
                     $('#table_example1').html(result);
                 });*/
+                example1.ajax.reload();
             }
         };
         // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
@@ -472,7 +467,7 @@
         });
 
         //zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        var dt =$('#example1').DataTable({
+        $('#example1').DataTable({
             "language": {
                 "url": "/public/bower_components/datatables.net/js/chinese.json"
             },
@@ -481,8 +476,67 @@
             'searching'   : false,
             'ordering'    : false,
             'info'        : true,
-            'autoWidth'   : false
-        })
+            'autoWidth'   : false,
+            'pageLength' : 15,
+            'pagingType': "simple_numbers",
+            "ajax": {
+                "dataType": 'json',
+                "contentType": "application/json;charset=UTF-8",
+                "url": "/user",
+                data: function (d) {
+                    var arrObject = [];
+                    var start = {"name": "start", "value": d.start};
+                    var length = {"name": "length", "value": d.length};
+                    var departId = {"name": "departId", "value": memberLevelId};
+                    arrObject.push(start, length, departId);
+                    return arrObject;
+                }
+            },
+            columns: [
+                {
+                    render: function ( data, type, row ) {
+                        return '<label class="pos-rel"><input type="checkbox" value="'+row.id+'" class="ace aceSingle" /><span class="lbl"></span></label>';
+                    },
+                    className: "center sorting_disabled",
+                    title: '<label class="pos-rel"><input type="checkbox" class="ace aceAll" /><span class="lbl"></span></label>',
+                },
+                {
+                    defaultContent: "",
+                    title: "序号",
+                    width:'6%',
+                    orderable: false,
+                    createdCell : function( cell, cellData, rowData, rowIndex, colIndex ){
+                        var pageInfo = example1.page.info();
+                        $(cell).html(rowIndex + pageInfo.start + 1);
+                    }
+                },
+                {data: "account", title: "登录帐号" , orderable:false, width: '10%'},
+                {data: "username", title: "姓名" , orderable:false},
+                {data: "gender", title: "性别" , orderable:false},
+                {data: "mobile", title: "手机号" , orderable:false},
+                {data: "email", title: "邮箱" , orderable:false},
+                {data: "weixin", title: "微信" , orderable:false},
+                {data: "status", title: "状态" , orderable:false, width: '10%', render:function(data, type, row) {
+                    //return row.status == 1 ? '<span class="badge bg-green">生效</span>' : '<span class="badge bg-red">新增</span>';
+                    var result = '';
+                    if (row.status == 1) {
+                        result =  '<span class="badge bg-green">生效</span>';
+                    }
+                    if (row.status == 2) {
+                        result =  '<span class="badge bg-red">停用</span>';
+                    }
+                    if (row.status == 0) {
+                        result =  '<span class="badge bg-red">新增</span>';
+                    }
+
+                    return result;
+                } },
+                {data: "id", title: "操作", width: '15%', orderable:false, render:function(data, type, row){
+                    return '<a class="btn btn-xs edit_btn" myData="'+row.id+'"><i class="fa fa-edit"></i> 编辑</a> ';
+                }}
+            ]
+        });
+        example1 = $('#example1').DataTable();
 
         $(".delete_btn").on('click',function(){
             layer.confirm('您确定删除吗？', {
